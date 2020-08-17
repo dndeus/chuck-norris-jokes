@@ -3,34 +3,30 @@
 namespace Dndeus\ChuckNorrisJokes\Tests;
 
 use Dndeus\ChuckNorrisJokes\JokeFactory;
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Request;
+use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
 class JokeFactoryTest extends TestCase
 {
     public function test_it_returns_a_random_joke()
     {
-        $jokes = new JokeFactory([
-            'This is a joke',
+        $mock = new MockHandler([
+            new Response(200, [], '{ "type": "success", "value": { "id": 479, "joke": "Chuck Norris does not need to know about class factory pattern. He can instantiate interfaces.", "categories": ["nerdy"] } }'),
         ]);
 
-        $joke = $jokes->getRandomJoke();
+        $handlerStack = HandlerStack::create($mock);
+        $client = new Client(['handler' => $handlerStack]);
 
-        $this->assertSame('This is a joke', $joke);
-    }
-
-    public function test_it_returns_a_predefined_joke()
-    {
-        $jokesPredefined = [
-            'Time waits for no man. Unless that man is Chuck Norris',
-            'Chuck Norris breathes air … five times a day.',
-            'Chuck Norris has a mug of nails instead of coffee in the morning.',
-            'Chuck Norris’ tears cure cancer. Too bad he has never cried.',
-        ];
-
-        $jokes = new JokeFactory();
+        $jokes = new JokeFactory($client);
 
         $joke = $jokes->getRandomJoke();
 
-        $this->assertContains($joke, $jokesPredefined);
+        $this->assertSame('Chuck Norris does not need to know about class factory pattern. He can instantiate interfaces.', $joke);
     }
+
 }
