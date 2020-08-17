@@ -4,10 +4,8 @@ namespace Dndeus\ChuckNorrisJokes\Tests;
 
 use Dndeus\ChuckNorrisJokes\JokeFactory;
 use GuzzleHttp\Client;
-use GuzzleHttp\Exception\RequestException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 
@@ -28,5 +26,4 @@ class JokeFactoryTest extends TestCase
 
         $this->assertSame('Chuck Norris does not need to know about class factory pattern. He can instantiate interfaces.', $joke);
     }
-
 }
