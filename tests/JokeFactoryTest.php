@@ -24,7 +24,7 @@ class JokeFactoryTest extends TestCase
             'Time waits for no man. Unless that man is Chuck Norris',
             'Chuck Norris breathes air … five times a day.',
             'Chuck Norris has a mug of nails instead of coffee in the morning.',
-            'Chuck Norris’ tears cure cancer. Too bad he has never cried.'
+            'Chuck Norris’ tears cure cancer. Too bad he has never cried.',
         ];
 
         $jokes = new JokeFactory();
